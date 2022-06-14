@@ -36,13 +36,14 @@ class Verification extends ApiResource
      *
      * @param string $phone_number
      * @param string $verification_code
+     * @param string $verify_profile_id
      * @param array|string|null $options
      *
      * @return \Telnyx\TelnyxObject
      */
-    public static function submit_verification($phone_number, $verification_code, $options = null)
+    public static function submit_verification($phone_number, $verification_code, $verify_profile_id, $options = null)
     {
-        $params = ['code' => $verification_code];
+        $params = ['code' => $verification_code, 'verify_profile_id' => $verify_profile_id];
         self::_validateParams($params);
         $url = '/v2/verifications/by_phone_number/' . urlencode($phone_number) . '/actions/verify';
 
