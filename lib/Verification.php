@@ -11,8 +11,24 @@ class Verification extends ApiResource
 {
     const OBJECT_NAME = "verification";
 
-    use ApiOperations\Create;
     use ApiOperations\Retrieve;
+
+    /**
+     * @param array|null $params
+     * @param array|string|null $options
+     *
+     * @return \Telnyx\ApiResource The created resource.
+     */
+    public static function create($params = null, $options = null)
+    {
+        self::_validateParams($params);
+        $url = '/v2/verifications/sms';
+
+        list($response, $opts) = static::_staticRequest('post', $url, $params, $options);
+        $obj = \Telnyx\Util\Util::convertToTelnyxObject($response->json, $opts);
+        $obj->setLastResponse($response);
+        return $obj;
+    }
 
     /**
      * Retrieve a verification by phone number
