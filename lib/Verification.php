@@ -19,10 +19,10 @@ class Verification extends ApiResource
      *
      * @return \Telnyx\ApiResource The created resource.
      */
-    public static function create($params = null, $options = null)
+    public static function create($params = null, $options = null, $type = 'sms')
     {
         self::_validateParams($params);
-        $url = '/v2/verifications/sms';
+        $url = '/v2/verifications/'.$type;
 
         list($response, $opts) = static::_staticRequest('post', $url, $params, $options);
         $obj = \Telnyx\Util\Util::convertToTelnyxObject($response->json, $opts);
